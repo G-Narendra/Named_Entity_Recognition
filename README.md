@@ -1,124 +1,75 @@
 # 🔍 Named Entity Recognition (NER)
-### Intelligent Information Extraction using Natural Language Processing
 
-<p align="center">
-<img src="https://img.shields.io/badge/Python-3.8+-blue?style=for-the-badge&logo=python">
-<img src="https://img.shields.io/badge/NLP-SpaCy%20%7C%20NLTK-green?style=for-the-badge">
-<img src="https://img.shields.io/badge/Model-CRF%20%7C%20LSTM%20%7C%20BERT-red?style=for-the-badge">
-<img src="https://img.shields.io/badge/Status-Optimized-brightgreen?style=for-the-badge">
-<img src="https://img.shields.io/badge/Platform-Jupyter-orange?style=for-the-badge&logo=jupyter">
-</p>
+**Extracting named entities (persons, organizations, locations) from text using deep learning.**
+
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/)
+[![License MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 ---
 
-## 🌟 Overview
+## 🎯 Problem Statement
 
-**Named Entity Recognition (NER)** is a fundamental task in Information Extraction that identifies and categorizes key information in unstructured text. This project implements an advanced NER pipeline capable of detecting entities such as **Persons (PER), Organizations (ORG), Locations (LOC), and Dates**. By utilizing a combination of statistical models and deep learning, the system transforms raw text into structured data ready for downstream analysis.
-
-
-
-### Core Capabilities:
-- **Entity Identification:** Detects spans of text representing specific categories.
-- **Contextual Understanding:** Uses bi-directional context to accurately distinguish between ambiguous entities (e.g., "Apple" as a fruit vs. "Apple" as a company).
-- **Multi-Model Support:** Implements traditional **CRF (Conditional Random Fields)** for speed and **LSTMs/Transformers** for state-of-the-art accuracy.
-- **Scalable Extraction:** Optimized for processing large datasets (`ner_dataset.csv`) with minimal latency.
+Extracting named entities (persons, organizations, locations) from text using deep learning.
 
 ---
 
-## 🧠 Tech Stack
+## 📊 What I Built
 
-| Category | Tools |
-| :--- | :--- |
+LSTM-based NER pipeline: data preprocessing, token indexing, padding, LSTM model training, entity extraction.
+
+### Key Results
+
+| Metric | Value |
+|---|---|
+| **Model** | LSTM with Keras/TensorFlow |
+
+---
+
+## 🛠️ Tech Stack
+
+| Component | Technology |
+|---|---|
 | **Language** | Python 3.8+ |
-| **NLP Libraries** | SpaCy, NLTK, Transformers (Hugging Face) |
-| **Deep Learning** | PyTorch / TensorFlow |
-| **Data Handling** | Pandas, NumPy |
-| **Environment** | Jupyter Notebook |
+| **Framework** | LSTM with Keras/TensorFlow |
 
 ---
 
 ## 📁 Project Structure
 
-```bash
+```
 Named_Entity_Recognition/
-├── data/
-│   └── ner_dataset.csv         # Annotated dataset for training (IOB format)
-├── src/
-│   └── NameEnitityRecognition.ipynb  # Main pipeline: preprocessing, training, & evaluation
-├── assets/
-│   └── confusion_matrix.png    # Performance analysis across entity classes
-├── requirements.txt            # Dependency list
-└── README.md                   # Documentation
-
+├── *.ipynb                          # Main notebook
+├── README.md
+└── LICENSE
 ```
 
 ---
 
-## ⚙️ Installation & Setup
-
-### 1️⃣ Clone the Repository
+## 🔧 How to Run
 
 ```bash
-git clone [https://github.com/G-Narendra/Named_Entity_Recognition.git](https://github.com/G-Narendra/Named_Entity_Recognition.git)
-cd Named_Entity_Recognition
-
-```
-
-### 2️⃣ Install Dependencies
-
-```bash
+# Install dependencies
 pip install -r requirements.txt
 
-```
-
-### 3️⃣ Run the Notebook
-
-```bash
-jupyter notebook NameEnitityRecognition.ipynb
-
+# Run the notebook
+jupyter notebook *.ipynb
 ```
 
 ---
 
-## 💡 How It Works
+## ⚠️ Limitations
 
-The NER pipeline follows a specialized sequence-labeling workflow:
-
-1. **Tokenization:** Breaking sentences into individual words or sub-word units.
-2. **Feature Encoding:** Converting tokens into dense vectors using word embeddings (Word2Vec, GloVe, or BERT).
-3. **Sequence Labeling:** The model predicts a label for each token (e.g., `B-PER`, `I-PER`, `O`) using context from previous and future tokens.
-4. **Aggregation:** Reconstructing the labeled tokens into full entities.
+- **No CRF layer**
+- **No pre-trained embeddings**
+- **No confidence scores**
+- **Limited to CoNLL format**
 
 ---
 
-## 📊 Performance & Evaluation
+## ⚠️ Disclaimer
 
-The model is evaluated using the **F1-Score**, which is the gold standard for NER due to the heavy imbalance of "O" (Outside) tags.
-
-* **Precision:** Accuracy of the entities identified.
-* **Recall:** Ability to find all relevant entities in the text.
-* **Metrics Visualization:** Includes a per-entity breakdown (e.g., how well the model finds `LOC` vs `ORG`).
+This is an educational project for learning NLP concepts. It is not intended for production use.
 
 ---
 
-## Engineering Decisions & Challenges Solved
-
-| Challenge | Decision | Why |
-|---|---|---|
-| NER requires sequential token-level labels | CRF (Conditional Random Field) over BIO-tagged sequences | CRFs model label dependencies — the tag B-PER must be followed by I-PER, not I-LOC; CRFs learn these transitions |
-| Feature engineering affects CRF performance | Word-level features: suffixes, prefixes, capitalization, word shape | Capitalized words are often named entities; suffixes like "-tion" indicate organizations — handcrafted features boost CRF accuracy |
-| Different NER domains need different entity types | Configurable label set (can switch between CoNLL and custom domains) | A medical NER system needs different entities (DRUG, DISEASE) than a general one (PERSON, ORG) |
-| Evaluation must be span-level, not token-level | Span-level precision/recall/F1 (exact match, not partial) | Token-level metrics inflate scores — a model that gets 9 out of 10 tokens right in a 3-token entity scores 0% span accuracy |
-
-## 👨‍💻 Author
-
-**Narendra (G‑Narendra)** AI | ML | Python | Full Stack | GenAI Enthusiast
-
-📧 [Email Me](mailto:narendragandikota2540@gmail.com) | 💼 [LinkedIn](https://linkedin.com/in/g-narendra/) | 👨‍💻 [GitHub](https://github.com/G-Narendra)
-
-🌐 [Portfolio](https://g-narendra-portfolio.lovable.app/)
-
----
-
-<p align="center">⭐ If you find this project useful, feel free to give it a star! 🚀</p>
-
+*Built as part of MSc Data Science coursework.*
