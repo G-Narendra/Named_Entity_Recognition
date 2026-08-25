@@ -101,6 +101,15 @@ The model is evaluated using the **F1-Score**, which is the gold standard for NE
 
 ---
 
+## Engineering Decisions & Challenges Solved
+
+| Challenge | Decision | Why |
+|---|---|---|
+| NER requires sequential token-level labels | CRF (Conditional Random Field) over BIO-tagged sequences | CRFs model label dependencies — the tag B-PER must be followed by I-PER, not I-LOC; CRFs learn these transitions |
+| Feature engineering affects CRF performance | Word-level features: suffixes, prefixes, capitalization, word shape | Capitalized words are often named entities; suffixes like "-tion" indicate organizations — handcrafted features boost CRF accuracy |
+| Different NER domains need different entity types | Configurable label set (can switch between CoNLL and custom domains) | A medical NER system needs different entities (DRUG, DISEASE) than a general one (PERSON, ORG) |
+| Evaluation must be span-level, not token-level | Span-level precision/recall/F1 (exact match, not partial) | Token-level metrics inflate scores — a model that gets 9 out of 10 tokens right in a 3-token entity scores 0% span accuracy |
+
 ## 👨‍💻 Author
 
 **Narendra (G‑Narendra)** AI | ML | Python | Full Stack | GenAI Enthusiast
